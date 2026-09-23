@@ -1,6 +1,7 @@
 from rest_framework import serializers
 from django.contrib.auth.models import User
 from . models import Profile
+from . util import sendEmail
 
 # user serializer
 class UserSerializer(serializers.ModelSerializer):
@@ -51,4 +52,5 @@ class RegistrationSerializer(serializers.ModelSerializer):
             bio=validated_data['bio']
             )
         # function to send email
+        sendEmail(username,email)
         return profile
