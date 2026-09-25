@@ -11,8 +11,7 @@ def sendEmail(username,email):
     send_mail(
         subject,
         body,
-        from_email=settings.MAILERS["username"],
-        recipient_list=[email]
-        ["email"],
+        settings.EMAIL_HOST_USER,
+        [email],
          fail_silently=False,
     )

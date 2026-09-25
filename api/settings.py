@@ -116,19 +116,30 @@ USE_TZ = True
 
 STATIC_URL = 'static/'
 
+# images
+MEDIA_URL = '/image/'
+MEDIA_ROOT = os.path.join(BASE_DIR,'image')
+
 
 # Email
 # https://docs.djangoproject.com/en/6.1/topics/email/#topic-email-configuration
 # Email settings
+# Email settings
+EMAIL_BACKEND = 'django.core.mail.backends.smtp.EmailBackend'
+EMAIL_HOST = 'smtp.gmail.com'  # Replace with your SMTP host
+EMAIL_HOST_USER = str(os.getenv('EMAIL_HOST_USER'))  # Your email address
+EMAIL_HOST_PASSWORD = str(os.getenv('EMAIL_HOST_PASSWORD'))  # Your email password
+EMAIL_PORT = 465  # SMTP port
+EMAIL_USE_SSL = True  # Use SSL for secure connection
 
-MAILERS = {
-    'default': {
-        'BACKEND': 'django.core.mail.backends.smtp.EmailBackend',
-        "OPTIONS": {
-                "host": "smtp.gmail.com",
-                "use_tls": True,
-                "username": str(os.getenv('EMAIL_HOST_USER')),
-                "password": str(os.getenv('EMAIL_HOST_PASSWORD')),
-            },
-    },
-}
+# MAILERS = {
+#     'default': {
+#         'BACKEND': 'django.core.mail.backends.smtp.EmailBackend',
+#         "OPTIONS": {
+#                 "host": "smtp.gmail.com",
+#                 "use_tls": True,
+#                 "username": str(os.getenv('EMAIL_HOST_USER')),
+#                 "password": str(os.getenv('EMAIL_HOST_PASSWORD')),
+#             },
+#     },
+# }
