@@ -35,4 +35,19 @@ class LoginView(APIView):
               
         except Exception as e:
             return Response({"error":str(e)}, status=status.HTTP_500_INTERNAL_SERVER_ERROR)
-        
+
+# DASHBOARD
+class UserDashboardView(APIView):
+    def get(self, request):
+        try:
+            user = request.user
+            profile = Profile.objects.get(user=user)
+            data = {
+                "profile": profile.fullname,
+            }
+            
+            return Response(data, status=status.HTTP_200_OK)
+        except Profile.DoesNotExist:
+            return Response({"error": "Profile not found"}, status=status.HTTP_404_NOT_FOUND)
+        except Exception as e:
+            return Response({"error": str(e)}, status=status.HTTP_500_INTERNAL_SERVER_ERROR)
