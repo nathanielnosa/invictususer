@@ -20,3 +20,19 @@ class RegistrationView(APIView):
             return Response(serializers.errors,status=status.HTTP_400_BAD_REQUEST)
         except Exception as e:
             return Response({"error":str(e)}, status=status.HTTP_500_INTERNAL_SERVER_ERROR)
+
+# LOGIN VIEW
+class LoginView(APIView):
+    def post(self,request):
+        try:
+            username = request.data.get('username')
+            password = request.data.get('password')
+            user = authenticate(username=username, password=password)
+            if user is not None:
+                login(request, user)
+                return Response({"message": "Login successful"}, status=status.HTTP_200_OK)
+            return Response({"message": "invalid username/password"}, status=status.HTTP_400_BAD_REQUEST)
+              
+        except Exception as e:
+            return Response({"error":str(e)}, status=status.HTTP_500_INTERNAL_SERVER_ERROR)
+        
